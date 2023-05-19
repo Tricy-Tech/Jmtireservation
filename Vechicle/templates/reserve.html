@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Reservation for {{ room_name }} on {{ start_date }} to {{end_date}}</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Next</button>
+    </form>
+{% endblock %}

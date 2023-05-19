@@ -1,0 +1,68 @@
+{% extends "base1.html" %}
+   
+
+   
+{% block content %}
+
+
+{% if  request.user.is_authenticated %}
+  {% if request.session.start_date and request.session.end_date%}
+  
+  <div class="alert">
+    Select the room
+  <p>Available rooms on {{ start_date }} to {{ end_date }} :</p>
+  {%if a_rooms%}
+  <ul class="list-group">
+    {% for room in a_rooms %}
+      
+    <li class="list-group-item"><a href="{% url 'myreservation' room.name %}">{{ room.name }}</a></li>
+
+    {% endfor %}
+  </ul>
+  <p></p>
+  <p>Not available rooms on {{ start_date }} to {{ end_date }} :</p>
+  <ul class="list-group">
+    {% for room in u_rooms %}
+      
+    <li class="list-group-item">{{ room.name }}</li>
+    {% endfor %}
+  </ul>
+    {% else%}
+    <li>No available rooms on {{ start_date }} to {{ end_date }}</li>  
+    {%endif%}
+    <li class="list-group-item">
+      <a class="btn btn-success", href="{% url 'refresh' %}"> refresh </a>
+      <p></p>
+      <a class="btn btn-success", href="{% url 'finish_room' %}"> Finish reservation </a>
+    </li>
+    <li class="list-group-item">
+      <p>{{request.user}}</p>
+      <p>{{request.session.name}}</p>
+      <p>{{request.session.start_date}}</p>
+      <p>{{request.session.end_date}}</p>
+      <p>{{request.session.participant}}</p>
+      <p>{{request.session.status}}</p>
+    </li>
+  {% else %}
+  <a href="{% url 'date_selection' %}"> Add new reservation </a>
+  <a href="{% url 'date_selection' %}"> Vechicle </a>
+  <a href="{% url 'date_selection' %}"> Room </a>
+  <a href="{% url 'logout' %}"> logout </a>
+  {% endif %}
+
+{% else %}
+<div class="alert">
+  Please Login before create a reservation 
+
+  <a class="btn btn-success"  href="/admin/login/?next=/"> Admin </a>
+  <a class="btn btn-success"  href="/login?next=/"> Login </a>
+  <a class="btn btn-success"  href="/register?next=/"> Register </a>
+  <a class="btn btn-success"  href="/view_pdf?next=/"> PDF </a>
+</div>
+</div>
+{% endif %}
+
+<div class="col-md-12">    
+    <div id='calendar'></div> 
+</div> 
+{% endblock content %} 
