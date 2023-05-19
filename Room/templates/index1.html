@@ -1,0 +1,63 @@
+{% extends "base1.html" %}
+   
+
+   
+{% block content %}
+
+
+{% if  request.user.is_authenticated %}
+  {% if request.session.start_date and request.session.end_date%}
+  
+  <div class="alert">
+    Select the room
+  <p>Available rooms on {{ start_date }} to {{ end_date }} :</p>
+  {%if a_rooms%}
+  <ul class="list-group">
+    {% for room in a_rooms %}
+      
+    <li class="list-group-item"><a href="{% url 'myreservation' room.name %}">{{ room.name }}</a></li>
+
+    {% endfor %}
+  </ul>
+  <p></p>
+  <p>Not available rooms on {{ start_date }} to {{ end_date }} :</p>
+  <ul class="list-group">
+    {% for room in u_rooms %}
+      
+    <li class="list-group-item">{{ room.name }}</li>
+    {% endfor %}
+  </ul>
+    {% else%}
+    <li>No available rooms on {{ start_date }} to {{ end_date }}</li>  
+    {%endif%}
+    <div class='alert'>
+      <a class="btn btn-success", href="{% url 'refresh' %}"> refresh </a>
+      <a class="btn btn-success", href="{% url 'finish_room' %}"> Finish reservation </a>
+    </div>
+  {% else %}
+  <div class="alert">
+    <a class="btn btn-success" href="{% url 'date_selection' %}"> Add new reservation </a>
+    <a class="btn btn-success" href="{% url 'logout' %}"> logout </a>
+    <a class="btn btn-success"  href="email_approve"> Email </a>
+  </div>
+  {% endif %}
+
+{% else %}
+<div class="alert">
+  Please Login before create a reservation 
+
+  <a class="btn btn-success"  href="/admin/login/?next=/"> Admin </a>
+  <a class="btn btn-success"  href="/login?next=/"> Login </a>
+  <a class="btn btn-success"  href="/register?next=/"> Register </a>
+  <a class="btn btn-success"  href="/view_pdf?next=/"> PDF </a>
+  <a class="btn btn-success"  href="email_approve"> Email </a>
+  <a class="btn btn-success" href="send_telegram_message"> Telegram </a>
+  <a class="btn btn-success" href="send_message">Send TElegram </a>
+</div>
+</div>
+{% endif %}
+
+<div class="col-md-12">    
+    <div id='calendar'></div> 
+</div> 
+{% endblock content %} 

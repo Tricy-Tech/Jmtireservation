@@ -1,0 +1,7 @@
+<!-- template.html -->
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label for="file">Select a file to attach:</label>
+    <input type="file" name="file" id="file">
+    <input type="submit" value="Send">
+</form>

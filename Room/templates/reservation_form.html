@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}New Reservation{% endblock title %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <h2>New Reservation</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="user">User:</label>
+                <p class="form-control">{{ user }}</p>
+            </div>
+            <div class="form-group">
+                <label for="name">Fasility Name:</label>
+                <p class="form-control">{{ name }}</p>
+            </div>
+            <div class="form-group">
+                <label for="reason">Reason:</label>
+                <p class="form-control">{{ reason }}</p>
+            </div>
+            {%if request.session.category == 1%}
+            <div class="form-group">
+                <label for="destination">Destination:</label>
+                <p class="form-control">{{ destination }}</p>
+            </div>
+            {%endif%}
+            <div class="form-group">
+                <label for="start_date">Start Date:</label>
+                <p class="form-control">{{ start_date}}</p>
+            </div>
+            <div class="form-group">
+                <label for="end_date">End Date:</label>
+                <p class="form-control">{{ end_date}}</p>
+            </div>
+            <div class="form-group">
+                <label for="participant">Participant:</label>
+                <p class="form-control">{{ participant }}</p>
+            </div>
+            <a href={% url 'submit_room'%} class="btn btn-primary">Create Reservation</a>
+        </form>
+    </div>
+</div>
+
+{% endblock content %}

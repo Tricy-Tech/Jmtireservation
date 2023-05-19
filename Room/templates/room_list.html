@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Select a room</h1>
+  <p>Available rooms on {{ start_date }} to {{ end_date }} :</p>
+  {%if a_rooms%}
+  <ul>
+    {% for room in a_rooms %}
+      
+        <li><a href="{% url 'myreservation' room.name %}">{{ room.name }}</a></li>
+
+    {% endfor %}
+  </ul>
+  <p>Not available rooms on {{ start_date }} to {{ end_date }} :</p>
+  <ul>
+    {% for room in u_rooms %}
+      
+        <li>{{ room.name }}</li>
+    {% endfor %}
+  </ul>
+    {% else%}
+    <li>No available rooms on {{ start_date }} to {{ end_date }}</li>  
+    {%endif%}
+  
+{% endblock %}
